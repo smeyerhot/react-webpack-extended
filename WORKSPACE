@@ -19,7 +19,6 @@ yarn_install(
     yarn_lock = "//:yarn.lock",
 )
 
-
 ###############################
 # DOCKER                      #
 ###############################
@@ -30,7 +29,6 @@ http_archive(
     strip_prefix = "rules_docker-0.17.0",
     urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.17.0/rules_docker-v0.17.0.tar.gz"],
 )
-
 load(
     "@io_bazel_rules_docker//repositories:repositories.bzl",
     container_repositories = "repositories",
@@ -38,27 +36,9 @@ load(
 
 container_repositories()
 
-load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
-
-container_deps()
-
 load(
-    "@io_bazel_rules_docker//container:container.bzl",
-    "container_pull",
+    "@io_bazel_rules_docker//nodejs:image.bzl",
+    _nodejs_image_repos = "repositories",
 )
 
-container_pull(
-    name = "alpine_git",
-    digest = "sha256:94e7d5791a8dcd3a4d45ea6d89b03d1004f8ee02c34c6124f1b6d269e8a312e0",
-    registry = "docker.io",
-    repository = "alpine/git",
-    tag = "1.0.4",
-)
-
-container_pull(
-    name = "alpine_nodejs",
-    registry = "docker.io",
-    repository = "node",
-    tag = "14.15.5-buster-slim", # paired down from full, still pretty big
-    digest = "sha256:33e8f8e0e98f1566a9d899c465a43d61ec9ab3b6d13e4a878f44e0cf42b41688",
-)
+_nodejs_image_repos()

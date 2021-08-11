@@ -49,3 +49,12 @@ http_server(
     ],
     templated_args = ["."],
 )
+
+load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+
+nodejs_image(
+    name = "nodejs_image",
+    entry_point = "index.js",
+    # npm deps will be put into their own layer
+    data = [":index.js"],    
+)
