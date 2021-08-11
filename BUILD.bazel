@@ -56,5 +56,9 @@ nodejs_image(
     name = "nodejs_image",
     entry_point = "index.js",
     # npm deps will be put into their own layer
-    data = [":index.js"],    
+    data = [
+        ":index.js",
+        "webpack.config.js",
+        "@npm//:node_modules",
+    ],    
 )

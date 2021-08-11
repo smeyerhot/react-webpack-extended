@@ -1,5 +1,5 @@
 workspace(
-    name = "react-webpack",
+    name = "react-webpack-extended",
     managed_directories = {
         "@npm": ["node_modules"],
 
